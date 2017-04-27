@@ -1,0 +1,6 @@
+<%= render photo.comments, photo: photo%>
+
+<%=  form_for [photo, photo.comments.new] do |f|%>
+<%=  f.text_field :content, placeholder: 'Add a comment...'%>
+
+<% end %>

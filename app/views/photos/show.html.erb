@@ -1,0 +1,154 @@
+<style>
+
+#cardpanelcontainer{
+position: absolute;
+bottom:25px;
+left:110px;
+opacity: 0.9;
+
+}
+</style>
+
+
+
+
+<p id="notice"><%= notice %></p>
+<div  class='container'>
+  <#div class='card-panel'>
+    <div  class="card  z-depth-5">
+      <div class="card-image waves-effect waves-block waves-light ">
+        <%=image_tag @photo.userimage.url(:medium), :id=> 'img'%><br>
+      <#/div>
+      <div id='cardpanelcontainer' class="container">
+        <div class='card-panel'>
+          <h4><%= @photo.title %></h4>
+          <p><%= render 'photo', photo: @photo %></p><br>
+        </div>
+      </div>
+
+</div>
+
+
+
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %><br>
+
+
+  Enroll
+  <p id="enroll"></p>
+  Enroll: (Enroll yourself in the facial recognition gallery)
+<div onclick="enroll()" class="switch ">
+    <label>
+      Off
+      <input type="checkbox">
+      <span class="lever"></span>
+      On
+    </label>
+  </div>
+  <button onclick="myFunction()">delete gallery</button>
+</div>
+
+
+
+
+</div>
+
+<div class='container'>
+  <div class='card-panel'>
+    <a id="webdescriptionbut" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+    <div id='webdescription'>
+      <%  @web.map do |web| %>
+      <%= simple_format web.description%>
+      <hr>
+      <% end %>
+    </div>
+
+    <a id="weburlbut" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+    <div id='weburl'>
+      <%  @weburl.each do |weburl| %>
+      <a><%= simple_format weburl.url %></a>
+      <hr>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+$( document ).ready(function() {
+$("#webdescription").hide();
+$("#weburl").hide();
+});
+
+
+$( "#webdescriptionbut" ).click(function() {
+$("#webdescription").fadeToggle('slow');
+});
+
+$( "#weburlbut" ).click(function() {
+$("#weburl").fadeToggle('slow');
+});
+
+
+
+url = gon.data
+console.log(url)
+
+function enroll() {
+// (1) set up your callback method
+  function myenrollCallback(response)
+  {
+  document.getElementById("enroll").innerHTML = (response.responseText);
+  }
+
+
+
+// (2) prepare your parameters
+var image = url; (URL)
+//(or)
+//var image  = data_img; //(data_img)
+  var subject_id  = 'dateapp';
+  var gallery_name  = '<%= @photo.title %>'
+// (3) pass your params and callback to the function
+  kairos.enroll(image, subject_id, gallery_name, myenrollCallback);
+}
+
+
+
+  function myFunction() {
+                  // (1) set up your callback method
+                  function myremoveGalleryCallback(response)
+                  {
+                     alert(response.responseText);
+                  }
+
+                  // (2) prepare your parameters
+                  var gallery_name_ = 'dateapp';
+                  // (3) pass your params and callback to the function
+                  kairos.removeGallery(gallery_name_, myremoveGalleryCallback);
+  }
+
+
+
+
+</script>

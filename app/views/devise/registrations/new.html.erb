@@ -1,0 +1,50 @@
+<style>
+.backgroundim{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url('https://cdn.shopify.com/s/files/1/0987/3386/files/YEEZY_Season_3_Philip_Browne_photography_by_kev_foster_4.jpg?v=1478222242')no-repeat ;
+  background-size: cover;
+  background-position: center;
+
+}
+
+
+#login_container{
+
+}
+
+.card{
+  opacity: 0.8;
+  top: 100px;
+}
+</style>
+
+
+
+<div class='backgroundim'>
+
+<div class='container'>
+  <div class='card center'>
+    <div class='container'>
+  <h2>Sign up</h2>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :email, required: true, autofocus: true %>
+    <%= f.input :user_name, required: true %>
+    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+    <%= f.input :password_confirmation, required: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+</div>
+</div>
+</div>
+</div>

@@ -1,0 +1,140 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="container ">
+<%= @post.user.user_name%>
+  <div id='sp' id="landingpage" class='card-panel'>
+
+    <div  class="card horizontal z-depth-5">
+      <div  class="card-image  waves-effect waves-block waves-light ">
+        <%=image_tag @post.image.url(:large), :id => 'myimage'%>
+        </div>
+        <div  class="card-stacked">
+          <div  class="card-content">
+            <div class='card-panel'>
+              <p>I am a very simple card. I am good at containing small bits of information.</p><br>
+              <span >
+                <p id="recognize"></p>
+              </span></br>
+            </div>
+          </div>
+          <div class="card-action">
+            <%= link_to 'Edit', edit_post_path(@post) %> | <%= link_to 'Back', posts_path %>|<%= link_to 'New Post', new_post_path %>
+          </div>
+
+        </div>
+      </div>
+
+        <a id="hidgoogledata" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+      <div id='anCS'>
+        <%  @labels.map do |label| %>
+          <%= simple_format label.description%>
+          <hr>
+          <% end %>
+
+      </div>
+      <a id="logos" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+      <div id='logs'>
+        <%  @logs.map do |logo| %>
+        <%= simple_format logo.description%>
+        <hr>
+        <% end %>
+      </div>
+    </div>
+</div>
+
+<div id='url'> <%= @post.image.url%> </div>
+
+
+
+
+
+
+
+
+<%= render 'photos/index', photo: @photo %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+$( document ).ready(function() {
+$("#anCS").hide();
+$("#logs").hide();
+});
+
+
+$( "#hidgoogledata" ).click(function() {
+$("#anCS").fadeToggle('slow');
+});
+
+$( "#logos" ).click(function() {
+$("#logs").fadeToggle('slow');
+});
+
+
+
+function recognizeCallback(response)
+{
+   x =  document.getElementById("recognize").innerHTML = (response.responseText);
+   o  = JSON.parse(x)
+   console.log(o)
+   a = o['images'][0]['candidates']
+   console.log(a)
+   var result = a.map(function(a) {return a.subject_id;});
+   console.log(result)
+
+   var arr = result,i;
+   for (i = 0; i < arr.length; ++i) {
+     console.log(arr[i]);
+
+     var divs = $('div');
+
+     divs.each(function(index, value) {
+        var id = $(value).attr('id');
+
+       //  console.log(id);
+
+         if(id == arr[i])
+         {
+           document.getElementById(id).style.display = 'inline';
+         }
+       });
+
+     //if (arr[i] == "miguel")
+     //console.log("yes")
+
+     //var divs = $('div');
+
+     //divs.each(function(index, value) {
+        //var id = $(value).attr('id');
+
+       //  console.log(id);
+
+         //if(id == arr[i])
+         //{
+           //document.getElementById(id).style.display = 'inline';
+         //}
+       //});
+    }
+}
+
+// (2) prepare your parameters
+//var image       = '/images/myphotos/myphoto123.png'; (URL)
+//(or)
+var image      = '<%= @post.image.url%>';
+gallery_name  = 'dateapp';
+// (3) pass your params and callback to the function
+kairos.recognize(image, gallery_name,recognizeCallback);
+
+
+</script>

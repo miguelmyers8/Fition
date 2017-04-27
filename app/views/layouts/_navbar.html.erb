@@ -1,0 +1,22 @@
+
+<div class="navbar-fixed">
+    <nav class="white z-depth-1">
+       <div class="nav-wrapper">
+         <a href="#" class="brand-logo right"></a>
+         <div  class="brand-logo center">
+         <% if user_signed_in? %>
+         <ul id="nav-mobile" class="left">
+         <li><%= link_to 'Home', photos_url %></li>
+           <li><%= link_to 'New Photo', new_photo_path %></li>
+           <li><%= link_to 'Recognize', new_post_path %></li>
+           <li><%= link_to 'History', posts_url %></li>
+           <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+         <% else %>
+           <li><%= link_to "Login", '#' %></li>
+           <li><%= link_to "Register", '#'  %></li>
+         </ul>
+         </div>
+       </div>
+         <% end %>
+     </nav>
+</div>

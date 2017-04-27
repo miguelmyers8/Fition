@@ -1,0 +1,57 @@
+<style>
+#indexbutton{
+  bottom:60px;
+  left: 430px;
+}
+
+@media screen and (max-width: 1000px) {
+  #indexbutton {
+    bottom:50px;
+    left: 10px;
+
+  }
+}
+
+</style>
+
+
+
+
+<div class='overlay'>
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <% @photos.each do |photo| %>
+    <div class="col s12 m6 m4">
+      <div class="content-block inset  ">
+          <div class="card  card-panel white lighten-2 z-depth-5">
+            <h5><%= photo.user.user_name%></h5>
+              <div class="card-image waves-effect waves-block waves-light ">
+                <%=link_to (image_tag photo.userimage.url(:large)), photo_path(photo) %>
+
+              </div>
+              <div class="card-content white z-depth-5">
+                <a id='indexbutton' class="btn-floating btn-large waves-effect waves-light z-depth-5 purple lighten-5"><i class="material-icons">add</i></a>
+
+                <span class="card-title activator grey-text text-darken-5"><i class="material-icons right">more_vert</i></span>
+                <p><a href="#"><%= photo.title %></a></p>
+
+                 <%= render 'photo', photo: photo %>
+
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+
+
+          </div>
+
+      </div>
+
+    </div>
+
+  <% end %>
+
+</div>
+</div>
