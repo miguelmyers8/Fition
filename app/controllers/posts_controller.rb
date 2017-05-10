@@ -15,6 +15,7 @@ end
   # GET /posts.json
   def index
     @posts = current_user.posts
+
   end
 
 
