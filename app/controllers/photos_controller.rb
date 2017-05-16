@@ -21,15 +21,15 @@ class PhotosController < ApplicationController
     gon.data = @photo.userimage.url
     forgoogle = @photo.userimage.url
 
-    private_key =  Google::Auth::ServiceAccountCredentials.make_creds(
-        scope: 'https://www.googleapis.com/auth/cloud-platform',
-        json_key_io: StringIO.new(ENV['VISION_KEYFILE_JSON'])
-      )
+    #private_key =  Google::Auth::ServiceAccountCredentials.make_creds(
+        #scope: 'https://www.googleapis.com/auth/cloud-platform',
+        #json_key_io: StringIO.new(ENV['VISION_KEYFILE_JSON'])
+      #)
 
 
       vision = Google::Cloud::Vision.new(
               project: "redoproject-163021",
-              keyfile: private_key,
+              keyfile: "config/redoproject-e87605fb29d9.json",
               )
 
               @image = vision.image(forgoogle)
