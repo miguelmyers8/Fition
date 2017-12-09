@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_for :users, :controllers => { registrations: 'registrations',  sessions: "my_sessions" }
 
   resources :photos do
     resources :comments
   end
 
   root 'photos#index'
-  
+
   resources :posts do
     collection do
       get 'file_upload'
